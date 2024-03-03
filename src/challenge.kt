@@ -1,40 +1,30 @@
+
+
 enum class Level { BASIC, INTERMEDIARY, ADVANCED }
 
 enum class EnrollmentStatus {NOT_ENROLLED, ENROLLED}
+data class TrainingProgram(val name: String,private var contents: MutableList<EducationalContent>) {
 
-class User(val name : String, val registration : Int , var level : Level, var punctuation : Int, var statusUser : EnrollmentStatus, var training: TrainingProgram) {
-
-    constructor(name: String, registration: Int, level: Level, punctuation: Int, statusUser: EnrollmentStatus,training: TrainingProgram) :
-            this(name, registration, level.BASIC, 0, statusUser.NOT_ENROLLED,training)
-
-    override fun toString(): String {
-        return super.toString("$name,$registration,$punctuation,$statusUser in $training")
-    }
-
-}
-
-data class TrainingProgram(val name: String,private var contents: mutableList<EducationalContent>) {
-
-    private val  training : mutableMap<String, mutableList<EducationalContent>> = mutableMapOf()
+    private val  training : MutableMap<String, MutableList<EducationalContent>> = mutableMapOf()
 
     init {
         training[name] = contents
     }
 
-    fun updateTraining(val name, content: EducationalContent){
+    fun updateTraining( name: String, content: EducationalContent){
         if(training.containsKey(name)){
-            training[name].add(content)
+            training[name]?.add(content)
         }else{
             training[name] = mutableListOf(content)
         }
 
     }
 
-    fun editContent(val name: String, var oldContent: EducationalContent, var newContent: EducationalContent){
+    fun editContent( name: String, oldContent: EducationalContent, newContent: EducationalContent){
 
         if(training.containsKey(name)){
 
-            val contents = training[name].toMutableList()
+            val contents = training[name]!!.toMutableList()
             val index = contents.indexOf(oldContent)
             if (index != null && index > -1) {
                 contents[index] = newContent
@@ -49,7 +39,7 @@ data class TrainingProgram(val name: String,private var contents: mutableList<Ed
         if (training.containsKey(currentName)) {
 
             val content = training.remove(currentName) // remove a chave correspondente no mapa, o nome da formação
-            training[newName] = content ?: emptyList() //Caso content for null, será preenchido com uma lista vazia
+            training[newName] = content ?: mutableListOf() //Caso content for null, será preenchido com uma lista vazia
 
         } else IllegalArgumentException("Non-existent training")
     }
@@ -65,11 +55,11 @@ data class EducationalContent(val name: String, var duration: Int = 60, var tech
 
 class EnrollmentManager(val students : List<User>, var training: TrainingProgram) {
 
-    internal val enrolledByRegistration = mutableMaptOf<Int, User>()
+    private val enrolledByRegistration = mutableMapOf<Int, User>()
 
-    internal val enrolledByName = mutableMaptOf<String,User>()
+    private  val enrolledByName = mutableMapOf<String,User>()
 
-    fun studentEnrollment(val students : List<User>){
+    fun studentEnrollment( students : List<User>){
 
         if(students != null ){
 
@@ -79,24 +69,24 @@ class EnrollmentManager(val students : List<User>, var training: TrainingProgram
                 val registration = student.registration
                 var level = student.level
                 var punctuation = student.punctuation
-                var enrollmentStatus = student.statusUser = ENROLLED
-                var trainingUser = student.training = training
+                var enrollmentStatus = EnrollmentStatus.ENROLLED
+                var trainingUser = student.training
 
                 enrolledByRegistration[student.registration] = student
                 enrolledByName[student.name] = student
 
-                pritnln("Added Successfully")
+                println("Added Successfully")
             }
 
-        }else IllegalArgumentException("user can't be null")
+        }else throw IllegalArgumentException("user can't be null")
 
     }
 
-    fun getEnrollmentManageByName(){
+    fun getEnrollmentManageByName(): MutableMap<String, User> {
         return enrolledByName
     }
 
-    fun getEnrollementManageByRegistration(){
+    fun getEnrollementManageByRegistration(): MutableMap<Int, User> {
         return enrolledByRegistration
     }
 
