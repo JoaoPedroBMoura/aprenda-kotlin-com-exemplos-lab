@@ -4,13 +4,13 @@ out/
 !**/src/test/**/out/
 
 ### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+.apt_generated/
+.classpath/
+.factorypath/
+.project/
+.settings/
+.springBeans/
+.sts4-cache/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
@@ -24,8 +24,8 @@ bin/
 
 ### IDES ###
 .vscode/
-.idea
+.idea/
 
 
 ### Mac OS ###
-.DS_Store
+.DS_Store/

@@ -1,16 +1,14 @@
-//TIP Press <shortcut raw="SHIFT"/> twice to open the Search Everywhere dialog and type <b>show whitespaces</b>,
-// then press <shortcut raw="ENTER"/>. You can now see whitespace characters in your code.
 fun main() {
-    val name = "Kotlin"
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    println("Hello, " + name + "!")
+ val pooJava = EducationalContent("poo em java",60,"java, Intellij",
+     "Principais conceitos da orientação objeto usando Java")
+ val boasPraticasJava = EducationalContent("Boas praticas em Java",120,"Java, Intellij",
+     "Aqui vamos entender como construir um código limpo quando falamos em Java")
 
-    //TIP click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-    // To <b>Run</b> code, press <shortcut actionId="Run"/> or
-    for (i in 1..5) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        println("i = $i")
-    }
+ val conteudoTrilhaJava = mutableListOf(pooJava, boasPraticasJava)
+
+ val trilhaJava  = TrainingProgram("Trilha Java",conteudoTrilhaJava)
+
+ //Level types : BASIC, INTERMEDIARY, ADVANCED
+
+ val user1 = User("João",1,Level.BASIC,1000,EnrollmentStatus.ENROLLED,trilhaJava,)
 }
