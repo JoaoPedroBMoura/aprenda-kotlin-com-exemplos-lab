@@ -3,6 +3,6 @@ data class User(
     val registration: Int,
     var level: Level,
     var punctuation: Int,
-    var statusUser: EnrollmentStatus,
-    var training: TrainingProgram
+    var training: TrainingProgram,
+    var statusUser: EnrollmentStatus = EnrollmentStatus.ENROLLED
 )
