@@ -1,26 +1,19 @@
-class EnrollmentManager(val students : List<User>, var training: TrainingProgram) {
+class EnrollmentManager(val students: List<User>, var training: TrainingProgram) {
 
-    private val enrolledByRegistration = mutableMapOf<Int, User>()
+    val enrolledByRegistration = mutableMapOf<Int, User>()
 
-    private  val enrolledByName = mutableMapOf<String,User>()
+    val enrolledByName = mutableMapOf<String, User>()
 
-    fun studentEnrollment( students : List<User>){
+    fun studentEnrollment(students: List<User>) {
+        students.map { user ->
+            user.copy(statusUser = EnrollmentStatus.ENROLLED, training = training).let {
 
-        for(student in students) {
+                enrolledByRegistration[it.registration] = it
+                enrolledByName[it.name] = it
 
-            val name = student.name
-            val registration = student.registration
-            var level = student.level
-            var punctuation = student.punctuation
-            var enrollmentStatus = EnrollmentStatus.ENROLLED
-            var trainingUser = student.training
-
-            enrolledByRegistration[student.registration] = student
-            enrolledByName[student.name] = student
-
-            println("Added Successfully")
+                println("Success Added")
+            }
         }
-
     }
 
     fun getEnrollmentManageByName(): MutableMap<String, User> {
